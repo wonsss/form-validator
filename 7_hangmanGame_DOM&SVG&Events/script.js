@@ -4,6 +4,9 @@ const playAgainBtn = document.getElementById('play-button');
 const popup = document.getElementById('popup-container');
 const notification = document.getElementById('notification-container');
 const finalMessage = document.getElementById('final-message');
+const finalMessageRevealWord = document.getElementById(
+  'final-message-reveal-word'
+);
 
 const figureParts = document.querySelectorAll('.figure-part');
 const words = ['application', 'programming', 'interface', 'wizard'];
@@ -29,6 +32,7 @@ function displayWord() {
   const innerWord = wordEl.innerText.replace(/\n/g, '');
   if (innerWord === selectedWord) {
     finalMessage.innerText = 'Congratulations! You won!';
+    finalMessageRevealWord.innerText = '';
     popup.style.display = 'flex';
   }
 }
@@ -53,6 +57,7 @@ function updateWrongLettersEl() {
   // Check if lost
   if (wrongLetters.length === figureParts.length) {
     finalMessage.innerText = 'Unfortunately you lost.';
+    finalMessageRevealWord.innerText = `...the word was: ${selectedWord}`;
     popup.style.display = 'flex';
   }
 }
