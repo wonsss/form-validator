@@ -8,6 +8,7 @@ const progress = document.getElementById('progress');
 const progressContainer = document.getElementById('progress-container');
 const title = document.getElementById('title');
 const cover = document.getElementById('cover');
+const timeline = document.getElementById('timeline');
 
 // Song titles
 const songs = ['hey', 'summer', 'ukulele'];
@@ -68,6 +69,13 @@ function updateProgress(e) {
   const { duration, currentTime } = e.srcElement;
   const progressPercent = (currentTime / duration) * 100;
   progress.style.width = `${progressPercent}%`;
+  timeline.innerText = `${String(Math.floor(audio.currentTime / 60)).padStart(
+    1,
+    '0'
+  )}:${String(Math.floor(audio.currentTime % 60)).padStart(
+    2,
+    '0'
+  )}/${Math.floor(audio.duration / 60)}:${Math.floor(audio.duration % 60)}`;
 }
 
 // Set progress bar

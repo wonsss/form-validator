@@ -120,6 +120,15 @@ body {
 .music-info h4 {
   margin: 0;
 }
+
+.music-info span {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  transform: translateY(60%);
+  font-size: 14px;
+}
+
 .progress-container {
   background: #fff;
   border-radius: 5px;
