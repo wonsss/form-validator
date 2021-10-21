@@ -6,13 +6,6 @@ const form = document.getElementById('form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
 
-// const dummyTransactions = [
-//   { id: 1, text: 'Flower', amount: -20 },
-//   { id: 2, text: 'Salary', amount: 300 },
-//   { id: 3, text: 'Book', amount: -10 },
-//   { id: 4, text: 'Camera', amount: 150 },
-// ];
-
 const localStorageTransactions = JSON.parse(
   localStorage.getItem('transactions')
 );
@@ -54,7 +47,9 @@ function addTransactionDOM(transaction) {
   // Add class based on value
   item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
   item.innerHTML = `
-        ${transaction.text} <span>${sign}$${Math.abs(transaction.amount)}</span>
+        ${transaction.text} <span>${sign}${Math.abs(
+    transaction.amount
+  ).toLocaleString('ko-KR')}원</span>
         <button class="delete-btn" onclick="removeTransaction(${
           transaction.id
         })">x</button>
@@ -65,20 +60,22 @@ function addTransactionDOM(transaction) {
 // Update the balance, income and expense
 function updateValues() {
   const amounts = transactions.map((transaction) => transaction.amount);
-  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  const total = amounts
+    .reduce((acc, item) => (acc += item), 0)
+    .toLocaleString('ko-KR');
 
   const income = amounts
     .filter((item) => item > 0)
     .reduce((acc, item) => (acc += item), 0)
-    .toFixed(2);
+    .toLocaleString('ko-KR');
   const expense = (
     amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
     -1
-  ).toFixed(2);
+  ).toLocaleString('ko-KR');
 
-  balance.innerText = `$${total}`;
-  money_plus.innerText = `$${income}`;
-  money_minus.innerText = `$${expense}`;
+  balance.innerText = `${total}원`;
+  money_plus.innerText = `${income}원`;
+  money_minus.innerText = `${expense}원`;
 }
 
 // Remove Transaction by ID
