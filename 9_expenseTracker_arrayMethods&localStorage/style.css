@@ -97,6 +97,7 @@ input[type='number'] {
   margin: 10px 0 30px;
   padding: 10px;
   width: 100%;
+  cursor: pointer;
 }
 
 .btn:focus,
