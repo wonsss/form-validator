@@ -1,7 +1,7 @@
 const postsContainer = document.getElementById('posts-container');
 const loading = document.querySelector('.loader');
 const filter = document.getElementById('filter');
-let limit = 10;
+let limit = 5;
 let page = 1;
 
 // Fetch posts from API
@@ -35,5 +35,25 @@ async function showPosts() {
   console.log(posts);
 }
 
+// Show loader & fetch more posts
+function showLoading() {
+  loading.classList.add('show');
+  setTimeout(() => {
+    loading.classList.remove('show');
+    setTimeout(() => {
+      page++;
+      showPosts();
+    }, 100); //다음페이지 로딩 시간
+  }, 300); //로더가 보이는 시간
+}
+
 // Show initial posts
 showPosts();
+
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  console.log(clientHeight);
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    showLoading();
+  }
+});
