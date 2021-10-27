@@ -13,9 +13,9 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height / 2,
   size: 10,
-  speed: 4,
-  dx: 4,
-  dy: -4,
+  speed: 7,
+  dx: 7,
+  dy: -7,
 };
 
 // Create brick props
@@ -43,9 +43,9 @@ for (let i = 0; i < brickColumnCount; i++) {
 const paddle = {
   x: canvas.width / 2 - 40,
   y: canvas.height - 20,
-  w: 80,
+  w: 100,
   h: 10,
-  speed: 8,
+  speed: 10,
   dx: 0,
 };
 
@@ -126,9 +126,34 @@ function moveBall() {
         ) {
           ball.dy *= -1;
           brick.visible = false;
+
+          increaseScore();
         }
       }
     });
+  });
+  // Hit bottom wall - Lose
+  if (ball.y + ball.size > canvas.height) {
+    showAllBricks();
+    score = 0;
+    // ball.x = canvas.width / 2;
+    // ball.y = canvas.height / 2;
+  }
+}
+
+// Increase score
+function increaseScore() {
+  score++;
+
+  if (score % (brickRowCount * brickColumnCount) === 0) {
+    showAllBricks();
+  }
+}
+
+// Make all bricks appear
+function showAllBricks() {
+  bricks.forEach((column) => {
+    column.forEach((brick) => (brick.visible = true));
   });
 }
 
@@ -179,6 +204,15 @@ function keyDown(e) {
 
 // Keyup event
 function keyUp(e) {
+  //   if (e.key === 'Right' || e.key === 'ArrowRight') {
+  //     setTimeout((paddle.dx = -100), console.log(paddle.dx), 1000);
+  //     paddle.dx = 0;
+  //     console.log(paddle.dx);
+  //   } else if (e.key === 'left' || e.key === 'ArrowLeft') {
+  //     setTimeout((paddle.dx = 100), console.log(paddle.dx), 1000);
+  //     paddle.dx = 0;
+  //   }
+
   if (
     e.key === 'Right' ||
     e.key === 'ArrowRight' ||
