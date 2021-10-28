@@ -30,7 +30,7 @@ function updateCountdown() {
 setTimeout(() => {
   loading.remove();
   countdown.style.display = 'flex';
-}, 1000);
+}, 500);
 
 // Run every second
 setInterval(updateCountdown, 1000);
