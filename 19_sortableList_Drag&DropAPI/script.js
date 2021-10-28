@@ -20,19 +20,31 @@ let dragStartIndex;
 
 createList();
 
+const numbers = [1, 3, 110, 40, 302];
+console.log(
+  numbers.sort(function (a, b) {
+    return a - b;
+  })
+);
+
 // Insert list items into DOM
 function createList() {
-  [...marketCapitalizationRanking].forEach((corp, index) => {
-    const listItem = document.createElement('li');
-    listItem.setAttribute('data-index', index);
-    listItem.innerHTML = `
+  [...marketCapitalizationRanking]
+    .map((a) => ({ value: a, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
+    .forEach((corp, index) => {
+      console.log(corp);
+      const listItem = document.createElement('li');
+      listItem.setAttribute('data-index', index);
+      listItem.innerHTML = `
             <span class="number">${index + 1}</span>
             <div class="draggable" draggable="true">
                 <p class="corp-name">${corp}</p>
                 <i class="fas fa-grip-lines"></i>
             </div>
         `;
-    listItems.push(listItem);
-    draggable_list.appendChild(listItem);
-  });
+      listItems.push(listItem);
+      draggable_list.appendChild(listItem);
+    });
 }
